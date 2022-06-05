@@ -8,31 +8,32 @@
 import UIKit
 
 class RandomListViewController: UITableViewController {
-
-    var nameList = ["Sheldon", "Leonard", "Howard", "Rajesh"]
-    var lastNameList = ["Cooper", "Hofstander", "Wolowitz", "Koothrappali"]
     
+    var person = DetailPerson.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    }
-//  Return Count of list
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return nameList.count
-    }
-
-        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "person", for: indexPath)
-            
-            cell.textLabel?.text = "\(nameList.randomElement()!) \(lastNameList.randomElement()!)"
-
         
-
-        return cell
     }
     
-
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return person.persons.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "person", for: indexPath)
+        cell.textLabel?.text = person.firstName.randomElement()! + person.lastName.randomElement()!
+        cell.imageView?.image = UIImage(systemName: "person.crop.square.fill")
+        return cell
+    }
+    /*
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let currentTrack =
+        personCell.insert(currentTrack, at: destinationIndexPath.row)
+        tableView.reloadData()
+        
+    }
+     */
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
